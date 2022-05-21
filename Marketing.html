@@ -1,0 +1,48 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
+    <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+
+<!--元データが格納されている箇所をpathsで指定します -->    
+    <py-env>
+        - numpy
+        - matplotlib
+        - pandas
+        - paths:
+            - /mmm.csv
+    </py-env>
+
+    </head>
+  <body>
+    <h1>元データ</h1>
+    <div id="rowdata"></div>
+<br>
+    <h1>グラフ</h1>
+    <div id="plot"></div>
+
+    <py-script output="rowdata">
+        import pandas as pd
+        df = pd.read_csv("mmm.csv")
+        pyscript.write("rowdata", df.head())
+    </py-script>    
+
+    <py-script output="plot">
+        import pandas as pd
+        import matplotlib.pyplot as plt
+        df = pd.read_csv("mmm.csv")
+        fig = plt.figure(figsize=(5,5))
+        plt.scatter(df.iloc[:, 1], df.iloc[:, 2])
+        fig
+    </py-script>    
+
+
+<!--  こちらで、コードの冗長性をなくしたものでも動きます。
+    <py-script output="plot">
+        import matplotlib.pyplot as plt
+        fig = plt.figure(figsize=(5,5))
+        plt.scatter(df.iloc[:, 1], df.iloc[:, 2])
+        fig
+    </py-script>   
+-->
+  </body>
+</html>
