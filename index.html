@@ -21,14 +21,23 @@
 
     <py-script output="rowdata">
         import pandas as pd
-        df = pd.read_csv("mmm.csv")
+        from pyodide.http import open_url
+        
+        url_content = open_url("https://raw.githubusercontent.com/gucchi123/pyscript_udemy/main/mmm.csv")
+        df = pd.read_csv(url_content, sep=",")
+        
         pyscript.write("rowdata", df.head())
     </py-script>    
 
     <py-script output="plot">
         import pandas as pd
         import matplotlib.pyplot as plt
-        df = pd.read_csv("mmm.csv")
+      
+      
+        from pyodide.http import open_url
+        
+        url_content = open_url("https://raw.githubusercontent.com/gucchi123/pyscript_udemy/main/mmm.csv")
+        df = pd.read_csv(url_content, sep=",")
         fig = plt.figure(figsize=(5,5))
         plt.scatter(df.iloc[:, 1], df.iloc[:, 2])
         fig
